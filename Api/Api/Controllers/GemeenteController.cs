@@ -21,14 +21,14 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Gemeente>> Get()
+        public async Task<IEnumerable<Gemeente>> Get(string orderBy = nameof(Gemeente.Name))
         {
-            return await _mediator.Send(new GetAllGemeenteQuery());
+            return await _mediator.Send(new GetAllGemeenteQuery { OrderBy = orderBy });
         }
 
         [HttpGet]
         [Route("{name}")]
-        public async Task<GemeenteDetails> Get(string name)
+        public async Task<GemeenteDetails> GetByName(string name)
         {
             return await _mediator.Send(new GetGemeenteDetailsByNameQuery { Name = name });
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
@@ -19,6 +21,20 @@ namespace Infrastructure.Persistence
         public Task<IEnumerable<Gemeente>> GetAllGemeentesAsync()
         {
             return Task.FromResult((IEnumerable<Gemeente>)_context.Gemeentes);
+        }
+
+        public async Task<IEnumerable<Gemeente>> GetAllGemeentesAsync(ISpecification<Gemeente> specification)
+        {
+            if (specification.OrderBy == null)
+            {
+                throw new ArgumentException("No specification was provided");
+            }
+
+            var query = _context.Set<Gemeente>().AsQueryable();
+
+            var orderedQuery = query.OrderBy(specification.OrderBy);
+
+            return await orderedQuery.ToListAsync();
         }
 
         public async Task<Gemeente> GetGemeenteByName(string name)

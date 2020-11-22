@@ -6,5 +6,6 @@ namespace Application.UseCases.GetAllGemeente
 {
     public class GetAllGemeenteQuery : IRequest<IEnumerable<Gemeente>>
     {
+        public string OrderBy { get; set; }
     }
 }
