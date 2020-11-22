@@ -8,5 +8,7 @@ namespace Core.Interfaces
     {
         //TODO PAGING
         Task<IEnumerable<Gemeente>> GetAllGemeentesAsync();
+
+        Task AddRangeAsync(IEnumerable<Gemeente> gemeentes);
     }
 }

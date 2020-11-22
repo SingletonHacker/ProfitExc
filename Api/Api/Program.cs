@@ -1,19 +1,26 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
+                await SeedData(uow);
+            }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +29,25 @@ namespace Api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static async Task SeedData(IUnitOfWork unitOfWork)
+        {
+            await unitOfWork.GemeenteRepository.AddRangeAsync(new List<Gemeente>
+            {
+                new Gemeente
+                {
+                    Name = "A",
+                    Provincie = new Provincie
+                    {
+                        Name = "Pr",
+                        Hoofdstad = "ho",
+                        OppervlakteKm = 42
+                    },
+                    AantalInwoners = 420
+                }
+            });
+
+            await unitOfWork.SaveChangesAsync();
+        }
     }
 }
