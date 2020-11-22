@@ -10,5 +10,7 @@ namespace Core.Interfaces
         Task<IEnumerable<Gemeente>> GetAllGemeentesAsync();
 
         Task AddRangeAsync(IEnumerable<Gemeente> gemeentes);
+
+        Task<Gemeente> GetGemeenteByName(string name);
     }
 }

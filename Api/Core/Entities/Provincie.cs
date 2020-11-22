@@ -13,6 +13,6 @@ namespace Core.Entities
 
         public string Hoofdstad { get; set; }
 
-        public int OppervlakteKm { get; set; }
+        public int OppervlakteKm2 { get; set; }
     }
 }

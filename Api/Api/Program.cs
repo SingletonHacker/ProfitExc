@@ -41,9 +41,31 @@ namespace Api
                     {
                         Name = "Pr",
                         Hoofdstad = "ho",
-                        OppervlakteKm = 42
+                        OppervlakteKm2 = 45
                     },
-                    AantalInwoners = 420
+                    AantalInwoners = 4120
+                },
+                new Gemeente
+                {
+                    Name = "B",
+                    Provincie = new Provincie
+                    {
+                        Name = "Pr2",
+                        Hoofdstad = "ho2",
+                        OppervlakteKm2 = 45
+                    },
+                    AantalInwoners = 4200
+                },
+                new Gemeente
+                {
+                    Name = "C",
+                    Provincie = new Provincie
+                    {
+                        Name = "Pr3",
+                        Hoofdstad = "ho3",
+                        OppervlakteKm2 = 45
+                    },
+                    AantalInwoners = 4120110
                 }
             });
 

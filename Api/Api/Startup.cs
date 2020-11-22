@@ -1,4 +1,5 @@
 using Application.UseCases.GetAllGemeente;
+using Application.UseCases.GetGemeenteDetailsByName;
 using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -27,6 +28,7 @@ namespace Api
             services
                 .AddDbContext<GemeenteContext>(options => options.UseInMemoryDatabase("InMemoryDbForTesting"))
                 .AddScoped<GetAllGemeenteQueryHandler>()
+                .AddScoped<GetGemeenteDetailsByNameQueryHandler>()
                 .AddScoped<IGemeenteRepository, GemeenteRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddMediatR(typeof(GetAllGemeenteQueryHandler).Assembly)

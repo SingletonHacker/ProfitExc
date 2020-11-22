@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
 {
@@ -18,6 +19,13 @@ namespace Infrastructure.Persistence
         public Task<IEnumerable<Gemeente>> GetAllGemeentesAsync()
         {
             return Task.FromResult((IEnumerable<Gemeente>)_context.Gemeentes);
+        }
+
+        public async Task<Gemeente> GetGemeenteByName(string name)
+        {
+            var query = _context.Set<Gemeente>().AsQueryable();
+
+            return await query.SingleOrDefaultAsync(q => q.Name == name);
         }
     }
 }
